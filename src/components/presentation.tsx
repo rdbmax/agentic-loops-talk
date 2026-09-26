@@ -42,11 +42,9 @@ function Timer() {
 function Hero({ onStart }: { onStart: () => void }) {
   return <div className="hero">
     <div className="hero-copy">
-      <div className="edition"><span /> LES SYSTÈMES QUI NE FONT PAS QUE RÉPONDRE</div>
-      <h1>Un modèle parle.<br />Une boucle <em>agit.</em></h1>
-      <p>Comprendre et développer<br />des boucles d’outils agentiques.</p>
+      <h1>Comprendre et développer des boucles d’outils agentiques.</h1>
+      <br />
       <button className="primary-button hero-cta" onClick={onStart}>Entrer dans la boucle <span>↗</span></button>
-      <div className="hero-meta"><span>30 MINUTES</span><span>2 VOIX</span><span>1 VRAIE DÉMO</span></div>
     </div>
     <div className="hero-art" aria-hidden="true">
       <div className="orbit orbit-a" /><div className="orbit orbit-b" /><div className="orbit orbit-c" />
@@ -56,7 +54,6 @@ function Hero({ onStart }: { onStart: () => void }) {
       <div className="orbital-tag orbital-tool"><span>03</span> outil</div>
       <div className="orbit-note">DÉCIDER → AGIR → OBSERVER</div>
     </div>
-    <div className="hero-bottom"><span>DE NOTRE APPLICATION DE VOYAGE À VOTRE PROCHAIN AGENT</span><div><span>Next.js</span><span>AI SDK</span><span>Modèle au choix</span></div></div>
   </div>;
 }
 
@@ -96,7 +93,6 @@ function CodeSlide() {
 
 export function Presentation({ configured }: { configured: boolean }) {
   const [index, setIndex] = useState(0);
-  const [notes, setNotes] = useState(false);
   const [feedback, setFeedback] = useState("");
   const menu = useRef<HTMLDialogElement>(null);
   const heading = useRef<HTMLHeadingElement>(null);
@@ -139,8 +135,7 @@ export function Presentation({ configured }: { configured: boolean }) {
         if (event.key === "Home") goTo(0);
         else if (event.key === "End") goTo(slides.length - 1);
         else goTo(index + (["ArrowLeft", "PageUp"].includes(event.key) ? -1 : 1));
-      } else if (event.key.toLowerCase() === "n") setNotes((visible) => !visible);
-      else if (event.key.toLowerCase() === "f") void fullscreen();
+      } else if (event.key.toLowerCase() === "f") void fullscreen();
       else if (event.key.toLowerCase() === "m") menu.current?.showModal();
     }
     window.addEventListener("keydown", onKey);
@@ -151,7 +146,7 @@ export function Presentation({ configured }: { configured: boolean }) {
     <a className="skip-link" href="#main-content" onClick={(event) => { event.preventDefault(); document.getElementById("main-content")?.focus(); }}>Aller au contenu</a>
     <header className="site-header">
       <button className="brand" onClick={() => goTo(0)} aria-label="Revenir à l’ouverture"><span className="brand-symbol">↻</span><span>dans la boucle<span className="brand-dot">.</span></span></button>
-      <div className="header-actions"><Timer /><button className={`utility-button ${notes ? "selected" : ""}`} aria-pressed={notes} onClick={() => setNotes(!notes)} title="Notes de répétition, visibles à l’écran (N)">Notes <kbd>N</kbd></button><button className="utility-button fullscreen-button" onClick={() => void fullscreen()} title="Plein écran (F)" aria-label="Basculer en plein écran">⛶</button><button className="utility-button" onClick={() => menu.current?.showModal()} title="Sommaire (M)" aria-label="Ouvrir le sommaire">☷</button></div>
+      <div className="header-actions"><Timer /><button className="utility-button fullscreen-button" onClick={() => void fullscreen()} title="Plein écran (F)" aria-label="Basculer en plein écran">⛶</button><button className="utility-button" onClick={() => menu.current?.showModal()} title="Sommaire (M)" aria-label="Ouvrir le sommaire">☷</button></div>
     </header>
     <nav className="chapter-nav" aria-label="Chapitres du talk">
       {chapters.map((chapter, chapterIndex) => <button key={chapter} className={chapterIndex === slide.chapter ? "current" : ""} aria-current={chapterIndex === slide.chapter ? "step" : undefined} onClick={() => goTo(slides.findIndex((item) => item.chapter === chapterIndex))}><span>0{chapterIndex + 1}</span>{chapter}<i /></button>)}
@@ -173,8 +168,8 @@ export function Presentation({ configured }: { configured: boolean }) {
       </div>
       <div hidden={slide.id !== "demo"}><Demo configured={configured} /></div>
     </main>
-    {notes && <aside className="speaker-notes" aria-label="Notes de répétition"><div><span className="eyebrow">VOIX {slide.speaker} · {slide.seconds / 60} MIN</span><button className="utility-button" onClick={() => setNotes(false)} aria-label="Fermer les notes">×</button></div><h2>{slide.cue}</h2><small>Visibles à l’écran — à utiliser en répétition.</small>{slide.notes.map((note) => <p key={note}>{note}</p>)}</aside>}
-    <footer className="deck-footer"><div className="footer-hint"><kbd>←</kbd><kbd>→</kbd><span>pour naviguer</span><span className="footer-separator" /><span>Next.js × AI SDK × modèle au choix</span></div><div className="page-controls"><button className="nav-arrow" onClick={() => goTo(index - 1)} disabled={index === 0} aria-label="Écran précédent">←</button><span><strong>{(index + 1).toString().padStart(2, "0")}</strong> / {slides.length.toString().padStart(2, "0")}</span><button className="nav-arrow" onClick={() => goTo(index + 1)} disabled={index === slides.length - 1} aria-label="Écran suivant">→</button></div><div className="deck-progress" style={{ width: `${((index + 1) / slides.length) * 100}%` }} /></footer>
+    <footer className="deck-footer">
+      <div className="page-controls"><button className="nav-arrow" onClick={() => goTo(index - 1)} disabled={index === 0} aria-label="Écran précédent">←</button><span><strong>{(index + 1).toString().padStart(2, "0")}</strong> / {slides.length.toString().padStart(2, "0")}</span><button className="nav-arrow" onClick={() => goTo(index + 1)} disabled={index === slides.length - 1} aria-label="Écran suivant">→</button></div><div className="deck-progress" style={{ width: `${((index + 1) / slides.length) * 100}%` }} /></footer>
     <div className="sr-only" role="status">{feedback}</div>
     <dialog ref={menu} className="outline-dialog"><div className="dialog-header"><div><span className="eyebrow">LE VOYAGE EN 30 MINUTES</span><h2>Choisir une escale.</h2></div><form method="dialog"><button className="utility-button" aria-label="Fermer le sommaire">×</button></form></div><div className="outline-list">{slides.map((item, slideIndex) => <button key={item.id} onClick={() => { goTo(slideIndex); menu.current?.close(); }} aria-current={index === slideIndex ? "step" : undefined}><span>{formatTime(slideStart(slideIndex))}</span><strong>{item.title.replace("\n", " ")}</strong><small>{item.speaker}</small></button>)}</div></dialog>
   </div>;

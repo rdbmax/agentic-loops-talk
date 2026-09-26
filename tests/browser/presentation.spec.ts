@@ -6,7 +6,7 @@ import { createRailTools } from "../../src/lib/tools";
 import type { DemoMessage } from "../../src/lib/chat-types";
 import { happyRailModel } from "../mock-model";
 
-test("navigation, sommaire, notes et tous les écrans", async ({ page }, testInfo) => {
+test("navigation, sommaire et tous les écrans", async ({ page }, testInfo) => {
   const errors: string[] = [];
   page.on("pageerror", (error) => errors.push(error.message));
   await page.goto("/");
@@ -19,9 +19,6 @@ test("navigation, sommaire, notes et tous les écrans", async ({ page }, testInf
   await page.getByRole("button", { name: "Ouvrir le sommaire" }).click();
   await expect(page.getByRole("dialog")).toBeVisible();
   await page.keyboard.press("Escape");
-  await page.getByRole("button", { name: "Notes N" }).click();
-  await expect(page.getByRole("complementary", { name: "Notes de répétition" })).toBeVisible();
-  await page.getByRole("button", { name: "Fermer les notes" }).click();
   for (const slide of slides.slice(2)) {
     await page.goto(`/#${slide.id}`);
     await expect(page.getByRole("heading", { level: 1 })).toHaveText(slide.title.replace("\n", " "));
