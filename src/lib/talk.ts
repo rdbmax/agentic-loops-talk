@@ -14,13 +14,13 @@ export const slides = [
     seconds: 60, speaker: "Duo",
   },
   {
-    id: "montre", chapter: 0, title: "« Tu as l’heure ? »",
-    subtitle: "Savoir répondre n’est pas la même chose qu’avoir l’information.",
+    id: "montre", chapter: 0, title: "L'interaction humaine",
+    subtitle: "",
     seconds: 60, speaker: "Duo",
   },
   {
-    id: "calendrier", chapter: 0, title: "« On est en retard ? »",
-    subtitle: "Une question. Deux observations. Une réponse contextualisée.",
+    id: "calendrier", chapter: 0, title: "Une interaction plus complexe",
+    subtitle: "",
     seconds: 60, speaker: "Duo",
   },
   {

@@ -152,7 +152,7 @@ export function Presentation({ configured }: { configured: boolean }) {
       {chapters.map((chapter, chapterIndex) => <button key={chapter} className={chapterIndex === slide.chapter ? "current" : ""} aria-current={chapterIndex === slide.chapter ? "step" : undefined} onClick={() => goTo(slides.findIndex((item) => item.chapter === chapterIndex))}><span>0{chapterIndex + 1}</span>{chapter}<i /></button>)}
     </nav>
     <main id="main-content" tabIndex={-1}>
-      {index === 0 ? <Hero onStart={() => goTo(1)} /> : <div className="slide-heading"><div><span className="eyebrow">{chapters[slide.chapter]} <span>/</span> {formatTime(slideStart(index))} — {formatTime(slideStart(index) + slide.seconds)}</span><h1 ref={heading} tabIndex={-1}>{slide.title}</h1><p>{slide.subtitle}</p></div><span className="speaker-tag">{slide.speaker === "Duo" ? "À DEUX VOIX" : `VOIX ${slide.speaker}`}</span></div>}
+      {index === 0 ? <Hero onStart={() => goTo(1)} /> : <div className="slide-heading"><div><span className="eyebrow">{chapters[slide.chapter]} <span>/</span> {formatTime(slideStart(index))} — {formatTime(slideStart(index) + slide.seconds)}</span><h1 ref={heading} tabIndex={-1}>{slide.title}</h1><p>{slide.subtitle}</p></div></div>}
       <div key={slide.id} className="slide-body">
         {(slide.id === "montre" || slide.id === "calendrier") && <HumanScene calendar={slide.id === "calendrier"} />}
         {slide.chapter === 1 && <div className="lab-grid"><Concept id={slide.id} /><LoopDiagram feature={slide.id} /></div>}

@@ -6,29 +6,28 @@ import { RailMap } from "./rail-map";
 export function HumanScene({ calendar = false }: { calendar?: boolean }) {
   const [step, setStep] = useState(0);
   const items = calendar ? [
-    { label: "La question", title: "On est en retard ?", detail: "Hypothèse : nous sommes déjà sur place.", kind: "question" },
+    { label: "La question", title: "On est en retard pour le talk ?", detail: "", kind: "question" },
     { label: "Les outils", title: "montre() + calendrier()", detail: "Deux informations indépendantes peuvent être récupérées en parallèle.", kind: "tools" },
-    { label: "Les observations", title: "14:07 / rendez-vous à 14:00", detail: "Les outils apportent des faits absents de la question.", kind: "observation" },
-    { label: "La réponse", title: "Oui, de 7 minutes.", detail: "La réponse s’appuie maintenant sur des observations.", kind: "answer" },
+    { label: "Les observations", title: "14:07 / rendez-vous à 14:00", detail: "", kind: "observation" },
+    { label: "La réponse", title: "Oui, de 7 minutes.", detail: "", kind: "answer" },
   ] : [
-    { label: "La question", title: "Tu as l’heure ?", detail: "Une demande simple… mais une information qui change.", kind: "question" },
-    { label: "L’outil", title: "consulterMontre()", detail: "Décider de consulter une source, plutôt qu’inventer.", kind: "tools" },
-    { label: "L’observation", title: "14:07", detail: "L’outil renvoie une information utilisable.", kind: "observation" },
-    { label: "La réponse", title: "Il est 14 h 07.", detail: "La source a été consultée. On peut répondre.", kind: "answer" },
+    { label: "La question", title: "Quelle heure est-il ?", detail: "Une demande simple… basé sur une information qui change.", kind: "question" },
+    { label: "L’outil", title: "montre()", detail: "Décider d'utiliser un outils, plutôt qu’inventer.", kind: "tools" },
+    { label: "L’observation", title: "14:07", detail: "L’outil renvoie une information.", kind: "observation" },
+    { label: "La réponse", title: "Il est 14 h 07.", detail: "", kind: "answer" },
   ];
   return (
     <div className="human-scene">
       <div className="conversation-stage">
-        <div className="human-person"><span className="avatar">A</span><small>DEMANDE</small></div>
+        <div className="human-person"><span className="avatar">Alice</span><small>DEMANDE</small></div>
         <div className={`speech-card ${items[step].kind}`} aria-live="polite">
           <span className="eyebrow">{items[step].label}</span><h2>{items[step].title}</h2><p>{items[step].detail}</p>
         </div>
-        <div className="human-person"><span className="avatar second">B</span><small>RÉPONSE</small></div>
+        <div className="human-person"><span className="avatar second">Max</span><small>RÉPONSE</small></div>
       </div>
       <div className="scene-track">
         {items.map((item, index) => <button key={item.label} onClick={() => setStep(index)} aria-pressed={step === index}><span>0{index + 1}</span>{" "}{item.label}</button>)}
       </div>
-      <p className="footnote">Scène jouée · heure fixe pour l’exemple · analogie, pas modèle du cerveau</p>
     </div>
   );
 }
