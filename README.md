@@ -72,9 +72,9 @@ Aucun appel au modèle n’est déclenché au chargement du site.
 | 24:00–28:00 | Patterns et synthèse | Situer ReAct, Plan-and-Execute, ReWOO, Reflexion |
 | 28:00–30:00 | Questions | Relier le mécanisme aux applications de l’équipe |
 
-Les 16 écrans, durées, voix A/B et notes détaillées sont dans `src/lib/talk.ts`.
+Les 16 écrans, durées et voix A/B sont dans `src/lib/talk.ts`.
 A et B sont des rôles à vous répartir. La partie « sous le capot » est dense :
-répéter avec le chrono et ne pas lire toutes les notes à l’oral.
+répéter avec le chrono.
 
 ### Ce qui a été challengé
 
@@ -109,7 +109,6 @@ répéter avec le chrono et ne pas lire toutes les notes à l’oral.
 | `←` / `→`, Page précédente / suivante, espace | Naviguer |
 | Début / Fin | Premier / dernier écran |
 | `M` | Sommaire avec timings |
-| `N` | Notes de répétition **visibles à l’écran**, pas une console privée |
 | `F` | Plein écran si le navigateur le permet |
 | Chrono en haut | Démarrer, pause, réinitialiser |
 
