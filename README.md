@@ -65,14 +65,14 @@ Aucun appel au modèle n’est déclenché au chargement du site.
 | Temps | Séquence | Intention |
 | --- | --- | --- |
 | 00:00–03:00 | Promesse, montre, calendrier | Passer d’une question aux observations nécessaires |
-| 03:00–14:00 | Un diagramme qui s’enrichit | Boucle, contraintes, contexte, cache, compaction, UI, raisonnement |
+| 03:00–14:00 | De l’outil à la boucle | Définition d’un outil, boucle, contraintes, contexte, cache, compaction, UI, raisonnement |
 | 14:00–17:00 | Assistants de code et chats généralistes | Reconnaître la boucle au quotidien |
 | 17:00–22:00 | Voie Lactée en direct | Chat, outils et carte ; réagir à une ligne fermée |
 | 22:00–24:00 | Extrait de code | Montrer contrat, politique et limites |
 | 24:00–28:00 | Patterns et synthèse | Situer ReAct, Plan-and-Execute, ReWOO, Reflexion |
 | 28:00–30:00 | Questions | Relier le mécanisme aux applications de l’équipe |
 
-Les 16 écrans, durées et voix A/B sont dans `src/lib/talk.ts`.
+Les 17 écrans, durées et voix A/B sont dans `src/lib/talk.ts`.
 A et B sont des rôles à vous répartir. La partie « sous le capot » est dense :
 répéter avec le chrono.
 

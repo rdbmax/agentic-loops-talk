@@ -24,14 +24,19 @@ export const slides = [
     seconds: 60, speaker: "Duo",
   },
   {
+    id: "outil", chapter: 1, title: "Comment déclarer un outil ?",
+    subtitle: "Un nom, une description, deux schémas et une fonction d’exécution.",
+    seconds: 60, speaker: "A",
+  },
+  {
     id: "boucle", chapter: 1, title: "La boucle, sans magie.",
     subtitle: "Le modèle propose. Votre code garde les commandes.",
-    seconds: 120, speaker: "A",
+    seconds: 90, speaker: "A",
   },
   {
     id: "contraintes", chapter: 1, title: "Des outils. Pas carte blanche.",
     subtitle: "Les capacités autorisées évoluent avec l’état de la boucle.",
-    seconds: 90, speaker: "A",
+    seconds: 60, speaker: "A",
   },
   {
     id: "contexte", chapter: 1, title: "La mémoire du chat ?\nUn contexte construit.",

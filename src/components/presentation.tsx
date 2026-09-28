@@ -5,6 +5,7 @@ import { chapters, formatTime, slides, slideStart, sources } from "@/lib/talk";
 import { Concept, HumanScene } from "./experiments";
 import { LoopDiagram } from "./loop-diagram";
 import { Demo } from "./demo";
+import { ToolDefinition } from "./tool-definition";
 
 const code = `const session = createRailTools();
 
@@ -156,7 +157,8 @@ export function Presentation({ configured }: { configured: boolean }) {
       {index === 0 ? <Hero onStart={() => goTo(1)} /> : <div className="slide-heading"><div><span className="eyebrow">{chapters[slide.chapter]} <span>/</span> {formatTime(slideStart(index))} — {formatTime(slideStart(index) + slide.seconds)}</span><h1 ref={heading} tabIndex={-1}>{slide.title}</h1><p>{slide.subtitle}</p></div></div>}
       <div key={slide.id} className="slide-body">
         {(slide.id === "montre" || slide.id === "calendrier") && <HumanScene calendar={slide.id === "calendrier"} />}
-        {slide.chapter === 1 && <div className="lab-grid"><Concept id={slide.id} /><LoopDiagram feature={slide.id} /></div>}
+        {slide.id === "outil" && <ToolDefinition />}
+        {slide.chapter === 1 && slide.id !== "outil" && <div className="lab-grid"><Concept id={slide.id} /><LoopDiagram feature={slide.id} /></div>}
         {slide.id === "assistants" && <Assistants />}
         {slide.id === "code" && <CodeSlide />}
         {slide.id === "patterns" && <Patterns />}

@@ -10,7 +10,7 @@ test("navigation, sommaire et tous les écrans", async ({ page }, testInfo) => {
   const errors: string[] = [];
   page.on("pageerror", (error) => errors.push(error.message));
   await page.goto("/");
-  await expect(page.getByRole("heading", { level: 1 })).toContainText("Une boucle agit.");
+  await expect(page.getByRole("heading", { level: 1 })).toContainText("Comprendre et développer des boucles d’outils agentiques.");
   await page.screenshot({ path: testInfo.outputPath("hero.png"), fullPage: true, animations: "disabled" });
   await page.getByRole("button", { name: "Entrer dans la boucle" }).click();
   await expect(page).toHaveURL(/#montre$/);
@@ -19,6 +19,22 @@ test("navigation, sommaire et tous les écrans", async ({ page }, testInfo) => {
   await page.getByRole("button", { name: "Ouvrir le sommaire" }).click();
   await expect(page.getByRole("dialog")).toBeVisible();
   await page.keyboard.press("Escape");
+  await page.goto("/#boucle");
+  await page.getByRole("button", { name: "Écran précédent" }).click();
+  await expect(page).toHaveURL(/#outil$/);
+  await expect(page.getByRole("heading", { level: 1 })).toHaveText("Comment déclarer un outil ?");
+  const parts = page.getByRole("group", { name: "Explorer la déclaration" }).getByRole("button");
+  for (let index = 0; index < 5; index++) {
+    await parts.nth(index).click();
+    await expect(parts.nth(index)).toHaveAttribute("aria-pressed", "true");
+    await expect(page.locator(".tool-code-highlight").first()).toBeVisible();
+    await expect(page).toHaveURL(/#outil$/);
+  }
+  await parts.nth(3).focus();
+  await page.keyboard.press("Enter");
+  await expect(page.locator("#tool-part-detail")).toContainText('"heure": "14:07"');
+  await expect(page.locator(".tool-code-highlight").first()).toContainText("const sortie = z.object");
+  await page.screenshot({ path: testInfo.outputPath("outil.png"), fullPage: true, animations: "disabled" });
   for (const slide of slides.slice(2)) {
     await page.goto(`/#${slide.id}`);
     await expect(page.getByRole("heading", { level: 1 })).toHaveText(slide.title.replace("\n", " "));
@@ -84,11 +100,16 @@ test("une erreur HTTP est affichée, sans réponse fictive", async ({ page }) =>
 
 test("version mobile sans débordement horizontal", async ({ page }, testInfo) => {
   await page.setViewportSize({ width: 390, height: 844 });
-  for (const id of ["depart", "boucle", "compaction", "demo", "patterns"]) {
+  for (const id of ["depart", "outil", "boucle", "compaction", "demo", "patterns"]) {
     await page.goto(`/#${id}`);
     await expect(page.getByRole("heading", { level: 1 })).toBeVisible();
-    await expect(page.locator(".page-controls")).toContainText("/ 16");
+    await expect(page.locator(".page-controls")).toContainText("/ 17");
     expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(true);
+    if (id === "outil") {
+      await page.getByRole("button", { name: "05 Fonction d’exécution execute" }).click();
+      await expect(page.locator("#tool-part-detail")).toContainText("lit l’horloge");
+      await page.screenshot({ path: testInfo.outputPath("outil-mobile.png"), fullPage: true, animations: "disabled" });
+    }
   }
   await page.screenshot({ path: testInfo.outputPath("mobile.png"), fullPage: true, animations: "disabled" });
 });

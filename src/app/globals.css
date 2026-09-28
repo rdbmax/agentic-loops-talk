@@ -122,6 +122,26 @@ kbd { font-size: 10px; border: 1px solid var(--line-strong); padding: 3px 5px; b
 .scene-track button span { font: 10px monospace; margin-right: 14px; }
 .scene-track button[aria-pressed=true] { color: var(--accent); border-color: var(--accent); }
 .human-scene > .footnote { text-align: center; }
+.tool-intro { display: grid; grid-template-columns: minmax(0, .85fr) minmax(0, 1.3fr); gap: 22px; align-items: stretch; }
+.tool-anatomy { padding: clamp(20px, 2vw, 30px); }
+.tool-definition-copy { font-size: clamp(17px, 1.5vw, 23px); line-height: 1.45; margin-bottom: 16px; }
+.tool-part-picker { display: grid; gap: 5px; }
+.tool-part-picker button { display: flex; align-items: center; gap: 12px; padding: 10px 12px; text-align: left; border: 1px solid var(--line); border-radius: 7px; font-size: 13px; }
+.tool-part-picker button:hover { border-color: var(--accent); }
+.tool-part-picker button[aria-pressed=true] { border-color: var(--accent); background: var(--blue-soft); color: var(--accent); }
+.tool-part-number { font: 10px monospace; color: var(--accent); }
+.tool-part-picker code { margin-left: auto; font-size: 10px; color: var(--muted); }
+.tool-part-detail { border-top: 1px solid var(--line); margin-top: 16px; padding-top: 18px; }
+.tool-part-detail .panel-label { color: var(--accent); }
+.tool-part-detail p { font-size: 13px; color: var(--muted); margin: 12px 0; min-height: 70px; }
+.tool-part-example { background: var(--blue-soft); padding: 12px; border-radius: 6px; }
+.tool-part-example small { display: block; font: 8px monospace; color: var(--muted); margin-bottom: 7px; }
+.tool-part-example code { display: block; font-size: 12px; overflow-wrap: anywhere; }
+.tool-declaration.code-window { display: flex; flex-direction: column; }
+.tool-declaration.code-window pre { flex: 1; padding: 20px; font-size: clamp(11px, .95vw, 15px); line-height: 1.5; color: #becdf0; }
+.tool-code-highlight { color: #fff0ad; background: #354e86; box-decoration-break: clone; -webkit-box-decoration-break: clone; }
+.tool-code-footer { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 10px; border-top: 1px solid #4665af; padding: 13px 20px; font-size: 10px; color: #dce7ff; }
+.tool-code-footer a { text-underline-offset: 3px; }
 .segmented { display: flex; border: 1px solid var(--line); border-radius: 5px; overflow: hidden; }
 .segmented button { flex: 1; padding: 9px 5px; color: var(--muted); font-size: 11px; }
 .segmented button[aria-pressed=true] { background: var(--accent); color: white; }
@@ -311,6 +331,12 @@ kbd { font-size: 10px; border: 1px solid var(--line-strong); padding: 3px 5px; b
   .demo-mode .slide-heading h1 { font-size: 33px; }
   .demo-grid { height: max(400px, calc(100dvh - 350px)); }
   .hero { min-height: calc(100dvh - 230px); }
+  .tool-anatomy { padding: 18px; }
+  .tool-definition-copy { font-size: 17px; margin-bottom: 12px; }
+  .tool-part-picker button { padding: 8px 10px; }
+  .tool-part-detail { margin-top: 12px; padding-top: 12px; }
+  .tool-part-detail p { margin: 8px 0; min-height: 64px; font-size: 12px; }
+  .tool-declaration.code-window pre { font-size: 12px; line-height: 1.5; padding: 14px 18px; }
 }
 @keyframes arrive { from { opacity: 0; transform: translateY(7px); } to { opacity: 1; transform: translateY(0); } }
 @keyframes trace-route { from { stroke-dashoffset: 700; } to { stroke-dashoffset: 0; } }
@@ -349,7 +375,11 @@ kbd { font-size: 10px; border: 1px solid var(--line-strong); padding: 3px 5px; b
   .slide-heading h1 { font-size: clamp(31px, 6vw, 45px); }
   .slide-heading .eyebrow { font-size: 8px; letter-spacing: .7px; }
   .slide-heading p { font-size: 13px; }
-  .lab-grid, .assistant-cards, .code-slide, .questions, .takeaways, .demo-grid { grid-template-columns: 1fr; }
+  .lab-grid, .tool-intro, .assistant-cards, .code-slide, .questions, .takeaways, .demo-grid { grid-template-columns: 1fr; }
+  .tool-part-picker button { font-size: 12px; gap: 8px; }
+  .tool-part-picker code { font-size: 9px; }
+  .tool-part-detail p { min-height: 0; }
+  .tool-declaration.code-window pre { font-size: 11px; padding: 16px 12px; white-space: pre-wrap; overflow-wrap: anywhere; }
   .concept, .diagram { padding: 22px; }
   .loop-node strong { font-size: 12px; }
   .loop-node small { font-size: 7px; }
