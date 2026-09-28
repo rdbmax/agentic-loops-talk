@@ -65,7 +65,7 @@ Aucun appel au modèle n’est déclenché au chargement du site.
 | Temps | Séquence | Intention |
 | --- | --- | --- |
 | 00:00–03:00 | Promesse, montre, calendrier | Passer d’une question aux observations nécessaires |
-| 03:00–14:00 | De l’outil à la boucle | Définition d’un outil, boucle, contraintes, contexte, cache, compaction, UI, raisonnement |
+| 03:00–14:00 | Sous le capot | Boucle, contexte, déclaration d’un outil, contraintes, cache, compaction, UI, raisonnement |
 | 14:00–17:00 | Assistants de code et chats généralistes | Reconnaître la boucle au quotidien |
 | 17:00–22:00 | Voie Lactée en direct | Chat, outils et carte ; réagir à une ligne fermée |
 | 22:00–24:00 | Extrait de code | Montrer contrat, politique et limites |

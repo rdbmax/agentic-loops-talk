@@ -9,7 +9,7 @@ const nodes = [
   { title: "Application", sub: "valide & exécute", x: 83, y: 76 },
   { title: "Observation", sub: "résultat ou erreur", x: 50, y: 76 },
   { title: "Réinjection", sub: "enrichit le contexte", x: 17, y: 76 },
-];
+] as const;
 const captions = [
   "Le code assemble les instructions, les messages et les outils autorisés.",
   "Le modèle produit une réponse ou propose un ou plusieurs appels d’outils.",
@@ -18,17 +18,19 @@ const captions = [
   "Le résultat réel — y compris un échec — devient une nouvelle observation.",
   "Le résultat rejoint le contexte du prochain appel. La boucle peut continuer.",
 ];
-const features: Record<string, string> = {
-  contraintes: "POLITIQUE → outils autorisés à chaque step",
-  contexte: "CONTEXTE → reconstruit pour chaque appel",
-  cache: "CACHE → réutilisation possible du préfixe",
-  compaction: "COMPACTION → une vue dérivée du contexte",
-  interface: "UI → une commande typée vers React",
-  raisonnement: "OBSERVABILITÉ → événements, pas pensées",
+const features: Record<string, { node: typeof nodes[number]["title"]; ribbon?: string }> = {
+  boucle: { node: "Contexte" },
+  contraintes: { node: "Application", ribbon: "POLITIQUE → outils autorisés à chaque step" },
+  contexte: { node: "Contexte", ribbon: "CONTEXTE → reconstruit pour chaque appel" },
+  cache: { node: "Contexte", ribbon: "CACHE → réutilisation possible du préfixe" },
+  compaction: { node: "Contexte", ribbon: "COMPACTION → une vue dérivée du contexte" },
+  interface: { node: "Application", ribbon: "UI → une commande typée vers React" },
+  raisonnement: { node: "Modèle", ribbon: "OBSERVABILITÉ → événements, pas pensées" },
 };
 
 export function LoopDiagram({ feature = "boucle" }: { feature?: string }) {
-  const [active, setActive] = useState(0);
+  const page = features[feature] ?? features.boucle;
+  const [active, setActive] = useState(() => nodes.findIndex((node) => node.title === page.node));
   return (
     <div className="diagram panel">
       <div className="panel-label"><span>LE MÊME MOTEUR</span><span className="tag">1 tour ≠ 1 appel</span></div>
@@ -45,7 +47,7 @@ export function LoopDiagram({ feature = "boucle" }: { feature?: string }) {
         ))}
         <div className="final-node">↳ réponse finale <span>→ utilisateur</span></div>
       </div>
-      {features[feature] && <div className="feature-ribbon">{features[feature]}</div>}
+      {page.ribbon && <div className="feature-ribbon">{page.ribbon}</div>}
       <div className="diagram-caption" aria-live="polite"><span>0{active + 1}</span><p>{captions[active]}</p></div>
       <button className="text-button" onClick={() => setActive((active + 1) % nodes.length)}>Étape suivante <span>↗</span></button>
     </div>

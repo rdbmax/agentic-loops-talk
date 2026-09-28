@@ -19,9 +19,12 @@ test("navigation, sommaire et tous les écrans", async ({ page }, testInfo) => {
   await page.getByRole("button", { name: "Ouvrir le sommaire" }).click();
   await expect(page.getByRole("dialog")).toBeVisible();
   await page.keyboard.press("Escape");
-  await page.goto("/#boucle");
-  await page.getByRole("button", { name: "Écran précédent" }).click();
+  await page.goto("/#contexte");
+  await page.getByRole("button", { name: "Écran suivant" }).click();
   await expect(page).toHaveURL(/#outil$/);
+  await page.getByRole("button", { name: "Écran précédent" }).click();
+  await expect(page).toHaveURL(/#contexte$/);
+  await page.getByRole("button", { name: "Écran suivant" }).click();
   await expect(page.getByRole("heading", { level: 1 })).toHaveText("Comment déclarer un outil ?");
   const parts = page.getByRole("group", { name: "Explorer la déclaration" }).getByRole("button");
   for (let index = 0; index < 5; index++) {
@@ -54,6 +57,28 @@ test("compaction séparée et diagramme interactif", async ({ page }, testInfo) 
   await page.getByRole("button", { name: "Étape suivante" }).click();
   await expect(page.locator(".diagram-caption")).toContainText("Le modèle produit une réponse");
   await page.screenshot({ path: testInfo.outputPath("compaction.png"), fullPage: true, animations: "disabled" });
+});
+
+test("le diagramme sélectionne le nœud de la page après chaque navigation", async ({ page }) => {
+  for (const [id, node] of [
+    ["boucle", "Contexte"],
+    ["contraintes", "Application"],
+    ["contexte", "Contexte"],
+    ["cache", "Contexte"],
+    ["compaction", "Contexte"],
+    ["interface", "Application"],
+    ["raisonnement", "Modèle"],
+  ]) {
+    await page.goto(`/#${id}`);
+    const selected = page.locator(".loop-node[aria-pressed=true]");
+    await expect(selected).toHaveCount(1);
+    await expect(selected).toContainText(node);
+    await page.locator(".loop-node").filter({ hasText: "Observation" }).click();
+    await expect(selected).toContainText("Observation");
+    await expect(page.locator(".diagram-caption")).toContainText("Le résultat réel");
+  }
+  await page.getByRole("button", { name: "Étape suivante" }).click();
+  await expect(page.locator(".loop-node[aria-pressed=true]")).toContainText("Réinjection");
 });
 
 test("chat SSE réel du SDK avec modèle de test, carte, suivi et historique", async ({ page }, testInfo) => {

@@ -24,43 +24,43 @@ export const slides = [
     seconds: 60, speaker: "Duo",
   },
   {
+    id: "boucle", chapter: 1, title: "La boucle",
+    subtitle: "",
+    seconds: 90, speaker: "A",
+  },
+  {
+    id: "contexte", chapter: 1, title: "Le contexte",
+    subtitle: "L'historique de conversation visible par l'utilisateur est très différent du contenu textuel envoyé au modèle.",
+    seconds: 90, speaker: "B",
+  },
+  {
     id: "outil", chapter: 1, title: "Comment déclarer un outil ?",
     subtitle: "Un nom, une description, deux schémas et une fonction d’exécution.",
     seconds: 60, speaker: "A",
   },
   {
-    id: "boucle", chapter: 1, title: "La boucle, sans magie.",
-    subtitle: "Le modèle propose. Votre code garde les commandes.",
-    seconds: 90, speaker: "A",
-  },
-  {
-    id: "contraintes", chapter: 1, title: "Des outils. Pas carte blanche.",
+    id: "contraintes", chapter: 1, title: "Mettre des contraintes sur les outils.",
     subtitle: "Les capacités autorisées évoluent avec l’état de la boucle.",
     seconds: 60, speaker: "A",
   },
   {
-    id: "contexte", chapter: 1, title: "La mémoire du chat ?\nUn contexte construit.",
-    subtitle: "Historique visible, état applicatif et contexte modèle sont trois choses différentes.",
-    seconds: 90, speaker: "B",
-  },
-  {
-    id: "cache", chapter: 1, title: "Réutiliser le préfixe.\nPas la réponse.",
+    id: "cache", chapter: 1, title: "Le prompt caching.",
     subtitle: "Si disponible, le prompt caching réutilise du calcul d’entrée sur un contexte stable.",
     seconds: 90, speaker: "B",
   },
   {
-    id: "compaction", chapter: 1, title: "Alléger le contexte.\nGarder la conversation.",
+    id: "compaction", chapter: 1, title: "Compacter le contexte.",
     subtitle: "Deux vues d’une même histoire, pour deux destinataires différents.",
     seconds: 90, speaker: "B",
   },
   {
-    id: "interface", chapter: 1, title: "Un outil peut aussi\nfaire bouger l’interface.",
-    subtitle: "Une action UI typée, plutôt qu’une instruction cachée dans le texte.",
+    id: "interface", chapter: 1, title: "Des outils destinés à l’interface.",
+    subtitle: "Une action UI typée, permet a des composants UI de réagir.",
     seconds: 90, speaker: "A",
   },
   {
-    id: "raisonnement", chapter: 1, title: "Observer les décisions.\nPas lire les pensées.",
-    subtitle: "Le raisonnement aide à choisir une action. Il ne remplace pas sa vérification.",
+    id: "raisonnement", chapter: 1, title: "Le raisonnement.",
+    subtitle: "Le raisonnement aide à choisir une action.",
     seconds: 90, speaker: "B",
   },
   {

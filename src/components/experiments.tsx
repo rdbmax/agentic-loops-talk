@@ -49,8 +49,7 @@ export function Concept({ id }: { id: string }) {
       <span className="panel-label">REQUÊTE VERS LE MODÈLE</span>
       <div className="context-stack"><div className="stable">Instructions + outils</div><div>Utilisateur : « Au calme, en train de nuit. »</div><div>Assistant : appels + résultats d’outils</div><div>Assistant : « Aurore ou Pélagia. »</div>{enabled && <div className="fresh">Utilisateur : « Et sans correspondance ? »</div>}</div>
       <button className="secondary-button" onClick={() => setEnabled(!enabled)}>{enabled ? "Revenir au premier tour" : "+ Un nouveau message"}</button>
-      <p>Dans cette boucle, <strong>l’application construit le contexte fourni au modèle</strong>. Il n’est pas toujours identique au chat visible.</p>
-      <small className="footnote">Schéma simplifié · selon l’API, l’historique est renvoyé ou référencé côté service.</small>
+      <p>Dans cette boucle, <strong>l’application construit le contexte fourni au modèle</strong>.</p>
     </div>;
   }
   if (id === "cache") {
@@ -68,7 +67,7 @@ export function Concept({ id }: { id: string }) {
       <span className="panel-label">HISTORIQUE ≠ CONTEXTE</span>
       <div className="compact-columns"><div><small>VUE UTILISATEUR</small>{["Un week-end au calme", "Moins de 900 crédits A/R", "En train de nuit", "Aurore ou Pélagia ?", "Sans correspondance"].map((text) => <p key={text}>{text}</p>)}</div><div><small>VUE MODÈLE</small>{enabled ? <><p className="summary">Résumé : calme, train de nuit, budget ≤ 900 crédits A/R. Candidats : Aurore, Pélagia.</p><p>« Sans correspondance »</p></> : <><p>Messages précédents</p><p>Appels + résultats complets</p><p>Réponses précédentes</p><p>« Sans correspondance »</p></>}</div></div>
       <button className="secondary-button" onClick={() => setEnabled(!enabled)}>{enabled ? "Restaurer le contexte illustré" : "Compacter la vue modèle"}</button>
-      <p>Le chat ne change pas. <strong>Le résumé peut perdre de l’information.</strong></p><small className="footnote">Illustration préécrite, non appliquée au chat live.</small>
+      <p>Le chat ne change pas. <strong>Le résumé peut perdre de l’information.</strong></p>
     </div>;
   }
   if (id === "interface") {
@@ -76,7 +75,7 @@ export function Concept({ id }: { id: string }) {
       <span className="panel-label">UN OUTIL SANS RECHERCHE MÉTIER</span>
       <RailMap compact selected={enabled ? ["aurore", "pelagia"] : []} />
       <button className="secondary-button" onClick={() => setEnabled(!enabled)}>{enabled ? "Réinitialiser l’illustration" : "Illustrer showItinerary()"}</button>
-      <p><code>{'{ destinationIds: ["aurore", "pelagia"] }'}</code></p><p>Commande préparée côté serveur → flux → rendu React. <strong>Pas un acquittement du navigateur.</strong></p>
+      <p><code>{'input : { destinationIds: ["aurore", "pelagia"] }'}</code></p><p>Commande préparée côté serveur → flux → rendu React.</p>
     </div>;
   }
   if (id === "raisonnement") {
@@ -84,13 +83,9 @@ export function Concept({ id }: { id: string }) {
       <span className="panel-label">CE QUE NOUS POUVONS VÉRIFIER</span>
       <div className="truth-card"><span className="good">OBSERVÉ</span><h2>checkConnections → ligne fermée</h2><p>Un appel, des arguments, un résultat et une durée.</p></div>
       <div className="truth-card"><span>EXPLIQUÉ</span><h2>« Je propose un autre trajet. »</h2><p>Une explication de la décision, pas une preuve de son mécanisme interne.</p></div>
-      <div className="callout">Une boucle d’outils n’exige ni mode « thinking », ni affichage d’une chaîne de pensée.</div>
     </div>;
   }
   return <div className="concept panel definition">
-    <span className="panel-label">LA DÉFINITION À EMPORTER</span>
-    <p className="large-copy">Une application qui laisse un modèle <em>choisir des actions</em>, exécute les outils autorisés, puis lui rend leurs résultats pour décider de la suite.</p>
-    <div className="callout"><strong>La sortie n’est pas toujours du texte.</strong><br /><code>{'{ tool: "montre", input: {} }'}</code></div>
-    <p>Arrêt : réponse finale, attente externe, erreur ou limite explicite.</p>
+    <p className="large-copy">L'agent laisse un modèle <em>choisir des actions</em>, exécute les outils autorisés, puis rend leurs résultats pour décider de la suite.</p>
   </div>;
 }
