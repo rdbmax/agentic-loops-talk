@@ -9,15 +9,18 @@ import { ToolDefinition } from "./tool-definition";
 
 const code = `const session = createRailTools();
 
-const result = streamText({
+const result = new ToolLoopAgent({
   model: selectedModel,
   instructions,
   messages: await convertToModelMessages(messages),
   tools: session.tools,
   stopWhen: isStepCount(6),
 
-  prepareStep: ({ stepNumber }) => {
-    const activeTools = session.activeTools(stepNumber);
+  prepareStep: ({ stepNumber, steps }) => {
+    const lastStep = steps[steps.length -1]
+    const { usage: { totalTokens } } = lastStep
+
+    const activeTools = session.activeTools(stepNumber, totalTokens);
     return {
       activeTools,
       toolChoice: activeTools.length ? "auto" : "none",
@@ -90,7 +93,7 @@ function Patterns() {
 }
 
 function CodeSlide() {
-  return <div className="code-slide"><div className="code-window"><div className="code-title"><span><i /><i /><i /></span><code>lib/loop.ts — extrait simplifié</code><span>AI SDK 7</span></div><pre><code>{code}</code></pre></div><div className="code-annotations"><article><span>01</span><h2>Le contrat</h2><p>Des descriptions, des schémas d’entrée et des fonctions d’exécution.</p></article><article><span>02</span><h2>La politique</h2><p>Les outils autorisés dépendent des observations. Les validations restent dans le code.</p></article><article><span>03</span><h2>Les limites</h2><p>Six appels maximum ; le dernier sans outil pour synthétiser. Timeout et annulation dans la route complète.</p></article><div className="callout">Le flux transporte le texte, les appels d’outils et les métriques jusqu’à React.</div></div></div>;
+  return <div className="code-slide"><div className="code-window"><div className="code-title"><span><i /><i /><i /></span><code>lib/loop.ts — extrait simplifié</code><span>AI SDK 7</span></div><pre><code>{code}</code></pre></div><div className="code-annotations"><article><span>01</span><h2>Le contrat</h2><p>Des descriptions, des schémas d’entrée et des fonctions d’exécution.</p></article><article><span>02</span><h2>La politique</h2><p>Les outils autorisés dépendent des observations. Les validations restent dans le code.</p></article><article><span>03</span><h2>Les limites</h2><p>Six appels maximum ; le dernier sans outil pour synthétiser. Timeout et annulation dans la route complète.</p></article><div className="callout">Le stream de réponse transporte le texte, les appels d’outils, les métriques et les raisonnements jusqu’au front.</div></div></div>;
 }
 
 export function Presentation({ configured }: { configured: boolean }) {

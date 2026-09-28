@@ -74,8 +74,8 @@ export const slides = [
     seconds: 300, speaker: "Duo",
   },
   {
-    id: "code", chapter: 3, title: "La partie utile tient\ndans une route.",
-    subtitle: "Le SDK gère la mécanique. Vous définissez la politique.",
+    id: "code", chapter: 3, title: "L'implémentation.",
+    subtitle: "Le SDK gère la mécanique. Vous définissez la logique.",
     seconds: 120, speaker: "A",
   },
   {
