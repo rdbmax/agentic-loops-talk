@@ -90,7 +90,7 @@ export function Demo({ configured }: { configured: boolean }) {
           </div>
           {error && <div className="error-box" role="alert">{error.message}<button className="text-button" onClick={() => { clearError(); setInput(messages.findLast((message) => message.role === "user")?.parts.filter((part) => part.type === "text").map((part) => part.text).join("") || suggestedPrompts[0]); }}>Reprendre la demande dans le champ ↗</button></div>}
           {notice && <div className="notice-box" role="status">{notice}</div>}
-          <div className="prompt-chips">{["Le départ", "Sans correspondance", "L’incident"].map((label, index) => <button key={label} disabled={busy} onClick={() => setInput(suggestedPrompts[index])}>{label}</button>)}</div>
+          <div className="prompt-chips">{["Le départ", "Sans correspondance", "Sirocco"].map((label, index) => <button key={label} disabled={busy} onClick={() => setInput(suggestedPrompts[index])}>{label}</button>)}</div>
           <form onSubmit={submit}>
             <label htmlFor="mission" className="sr-only">Votre demande de voyage</label>
             <textarea id="mission" value={input} onChange={(event) => setInput(event.target.value)} disabled={busy} maxLength={MAX_PROMPT_CHARACTERS} rows={3} placeholder="Votre prochaine escale…" />

@@ -10,6 +10,9 @@ test("navigation, sommaire et tous les écrans", async ({ page }, testInfo) => {
   const errors: string[] = [];
   page.on("pageerror", (error) => errors.push(error.message));
   await page.goto("/");
+  const pagination = page.getByRole("banner").getByRole("navigation", { name: "Navigation entre les écrans" });
+  await expect(pagination).toContainText("01 / 17");
+  await expect(pagination.getByRole("button", { name: "Écran précédent" })).toBeDisabled();
   await expect(page.getByRole("heading", { level: 1 })).toContainText("Comprendre et développer des boucles d’outils agentiques.");
   await page.screenshot({ path: testInfo.outputPath("hero.png"), fullPage: true, animations: "disabled" });
   await page.getByRole("button", { name: "Entrer dans la boucle" }).click();
@@ -44,6 +47,7 @@ test("navigation, sommaire et tous les écrans", async ({ page }, testInfo) => {
     await expect(page.locator("main")).not.toContainText(/Bedrock|Converse/i);
     expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(true);
   }
+  await expect(pagination.getByRole("button", { name: "Écran suivant" })).toBeDisabled();
   expect(errors).toEqual([]);
 });
 
@@ -128,7 +132,7 @@ test("version mobile sans débordement horizontal", async ({ page }, testInfo) =
   for (const id of ["depart", "outil", "boucle", "compaction", "demo", "patterns"]) {
     await page.goto(`/#${id}`);
     await expect(page.getByRole("heading", { level: 1 })).toBeVisible();
-    await expect(page.locator(".page-controls")).toContainText("/ 17");
+    await expect(page.getByRole("banner").locator(".page-controls")).toContainText("/ 17");
     expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(true);
     if (id === "outil") {
       await page.getByRole("button", { name: "05 Fonction d’exécution execute" }).click();
@@ -137,4 +141,14 @@ test("version mobile sans débordement horizontal", async ({ page }, testInfo) =
     }
   }
   await page.screenshot({ path: testInfo.outputPath("mobile.png"), fullPage: true, animations: "disabled" });
+  await page.setViewportSize({ width: 320, height: 740 });
+  await page.goto("/#outil");
+  await page.evaluate(() => window.scrollTo({ top: document.body.scrollHeight, behavior: "instant" }));
+  const header = page.getByRole("banner");
+  await expect(header.getByRole("button", { name: "Écran suivant" })).toBeInViewport();
+  expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(true);
+  await header.getByRole("button", { name: "Écran suivant" }).click();
+  await expect(page).toHaveURL(/#contraintes$/);
+  await expect.poll(() => page.evaluate(() => window.scrollY)).toBe(0);
+  await page.screenshot({ path: testInfo.outputPath("header-small-mobile.png"), fullPage: true, animations: "disabled" });
 });

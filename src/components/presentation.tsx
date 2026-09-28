@@ -151,7 +151,15 @@ export function Presentation({ configured }: { configured: boolean }) {
     <a className="skip-link" href="#main-content" onClick={(event) => { event.preventDefault(); document.getElementById("main-content")?.focus(); }}>Aller au contenu</a>
     <header className="site-header">
       <button className="brand" onClick={() => goTo(0)} aria-label="dans la boucle. — Revenir à l’ouverture"><span className="brand-symbol" aria-hidden="true">↻</span><span>dans la boucle<span className="brand-dot">.</span></span></button>
-      <div className="header-actions"><Timer /><button className="utility-button fullscreen-button" onClick={() => void fullscreen()} title="Plein écran (F)" aria-label="Basculer en plein écran">⛶</button><button className="utility-button" onClick={() => menu.current?.showModal()} title="Sommaire (M)" aria-label="Ouvrir le sommaire">☷</button></div>
+      <div className="header-actions">
+        <nav className="page-controls" aria-label="Navigation entre les écrans">
+          <button className="nav-arrow" onClick={() => goTo(index - 1)} disabled={index === 0} aria-label="Écran précédent">←</button>
+          <span><strong>{(index + 1).toString().padStart(2, "0")}</strong> / {slides.length.toString().padStart(2, "0")}</span>
+          <button className="nav-arrow" onClick={() => goTo(index + 1)} disabled={index === slides.length - 1} aria-label="Écran suivant">→</button>
+        </nav>
+        <Timer /><button className="utility-button fullscreen-button" onClick={() => void fullscreen()} title="Plein écran (F)" aria-label="Basculer en plein écran">⛶</button><button className="utility-button" onClick={() => menu.current?.showModal()} title="Sommaire (M)" aria-label="Ouvrir le sommaire">☷</button>
+      </div>
+      <div className="deck-progress" aria-hidden="true" style={{ width: `${((index + 1) / slides.length) * 100}%` }} />
     </header>
     <nav className="chapter-nav" aria-label="Chapitres du talk">
       {chapters.map((chapter, chapterIndex) => <button key={chapter} className={chapterIndex === slide.chapter ? "current" : ""} aria-current={chapterIndex === slide.chapter ? "step" : undefined} onClick={() => goTo(slides.findIndex((item) => item.chapter === chapterIndex))}><span>0{chapterIndex + 1}</span>{chapter}<i /></button>)}
@@ -174,8 +182,6 @@ export function Presentation({ configured }: { configured: boolean }) {
       </div>
       <div hidden={slide.id !== "demo"}><Demo configured={configured} /></div>
     </main>
-    <footer className="deck-footer">
-      <div className="page-controls"><button className="nav-arrow" onClick={() => goTo(index - 1)} disabled={index === 0} aria-label="Écran précédent">←</button><span><strong>{(index + 1).toString().padStart(2, "0")}</strong> / {slides.length.toString().padStart(2, "0")}</span><button className="nav-arrow" onClick={() => goTo(index + 1)} disabled={index === slides.length - 1} aria-label="Écran suivant">→</button></div><div className="deck-progress" style={{ width: `${((index + 1) / slides.length) * 100}%` }} /></footer>
     <div className="sr-only" role="status">{feedback}</div>
     <dialog ref={menu} className="outline-dialog"><div className="dialog-header"><div><span className="eyebrow">LE VOYAGE EN 30 MINUTES</span><h2>Choisir une escale.</h2></div><form method="dialog"><button className="utility-button" aria-label="Fermer le sommaire">×</button></form></div><div className="outline-list">{slides.map((item, slideIndex) => <button key={item.id} onClick={() => { goTo(slideIndex); menu.current?.close(); }} aria-current={index === slideIndex ? "step" : undefined}><span>{formatTime(slideStart(slideIndex))}</span><strong>{item.title.replace("\n", " ")}</strong><small>{item.speaker}</small></button>)}</div></dialog>
   </div>;
