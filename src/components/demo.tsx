@@ -79,7 +79,7 @@ export function Demo({ configured }: { configured: boolean }) {
         <section className="chat-panel panel" aria-label="Chat de l’agence">
           <div className="panel-label"><span>01 / LA DEMANDE</span><span>VOIE LACTÉE</span></div>
           <div className="chat-log" role="log" aria-label="Conversation">
-            {messages.length === 0 && <div className="chat-empty"><span className="rail-glyph" aria-hidden="true">↟</span><h3>On vous emmène<br />un peu plus loin.</h3><p>Un train de nuit, une fenêtre sur les anneaux de Saturne… Quelle est votre prochaine escale ?</p><small>Univers fictif · aucun billet réservé</small></div>}
+            {messages.length === 0 && <div className="chat-empty"><span className="rail-glyph" aria-hidden="true">↟</span><h2>On vous emmène<br />un peu plus loin.</h2><p>Un train de nuit, une fenêtre sur les anneaux de Saturne… Quelle est votre prochaine escale ?</p><small>Univers fictif · aucun billet réservé</small></div>}
             {messages.map((message) => <div className={`chat-message ${message.role}`} key={message.id}><small>{message.role === "user" ? "VOUS" : "CHEF DE GARE"}</small>{message.parts.map((part, index) => {
               if (part.type === "text") return <p key={index}>{part.text}</p>;
               if (isToolUIPart(part)) return <span key={index} className={`tool-chip ${part.state === "output-error" ? "failed" : ""}`}>{part.type.replace("tool-", "")} · {part.state === "output-available" ? "résultat reçu" : part.state === "output-error" ? "erreur" : "en cours"}</span>;
@@ -103,7 +103,7 @@ export function Demo({ configured }: { configured: boolean }) {
           <div className="journeys">
             {selected.length ? selected.map((id) => {
               const destination = destinations.find((item) => item.id === id)!;
-              return <div className="journey" key={id}><div><small>{destination.line}</small><h3>Terre → {destination.name}</h3><p>{destination.hours} h · {destination.changes ? `${destination.changes} correspondance` : "direct"} · {destination.nightTrain ? "train de nuit" : "train de jour"}</p></div><div className="fare">{destination.price}<small>crédits A/R</small></div></div>;
+              return <div className="journey" key={id}><div><small>{destination.line}</small><h2>Terre → {destination.name}</h2><p>{destination.hours} h · {destination.changes ? `${destination.changes} correspondance` : "direct"} · {destination.nightTrain ? "train de nuit" : "train de jour"}</p></div><div className="fare">{destination.price}<small>crédits A/R</small></div></div>;
             }) : <div className="map-empty">Les trajets apparaîtront après un appel réussi à <code>showItinerary</code>, pas après la simple mention d’une destination dans le texte.</div>}
           </div>
           <p className="footnote">Prix par personne, hors hébergement · état conservé pendant la navigation, pas après rechargement</p>

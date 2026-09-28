@@ -82,8 +82,8 @@ export function Concept({ id }: { id: string }) {
   if (id === "raisonnement") {
     return <div className="concept panel">
       <span className="panel-label">CE QUE NOUS POUVONS VÉRIFIER</span>
-      <div className="truth-card"><span className="good">OBSERVÉ</span><h3>checkConnections → ligne fermée</h3><p>Un appel, des arguments, un résultat et une durée.</p></div>
-      <div className="truth-card"><span>EXPLIQUÉ</span><h3>« Je propose un autre trajet. »</h3><p>Une explication de la décision, pas une preuve de son mécanisme interne.</p></div>
+      <div className="truth-card"><span className="good">OBSERVÉ</span><h2>checkConnections → ligne fermée</h2><p>Un appel, des arguments, un résultat et une durée.</p></div>
+      <div className="truth-card"><span>EXPLIQUÉ</span><h2>« Je propose un autre trajet. »</h2><p>Une explication de la décision, pas une preuve de son mécanisme interne.</p></div>
       <div className="callout">Une boucle d’outils n’exige ni mode « thinking », ni affichage d’une chaîne de pensée.</div>
     </div>;
   }

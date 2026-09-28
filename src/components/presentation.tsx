@@ -34,7 +34,7 @@ function Timer() {
     return () => clearInterval(interval);
   }, [running]);
   return <div className={`timer ${elapsed >= 1800 ? "over-time" : ""}`}>
-    <button aria-label={running ? "Mettre le chrono en pause" : "Démarrer le chrono"} title={running ? "Pause" : "Démarrer le chrono"} onClick={() => { start.current = Date.now() - elapsed * 1000; setRunning(!running); }}><span aria-hidden="true">{running ? "Ⅱ" : "▷"}</span> {formatTime(elapsed)} <small>/ 30:00</small></button>
+    <button aria-label={`${formatTime(elapsed)} / 30:00 — ${running ? "Mettre le chrono en pause" : "Démarrer le chrono"}`} title={running ? "Pause" : "Démarrer le chrono"} onClick={() => { start.current = Date.now() - elapsed * 1000; setRunning(!running); }}><span aria-hidden="true">{running ? "Ⅱ" : "▷"}</span> {formatTime(elapsed)} <small>/ 30:00</small></button>
     <button className="timer-reset" aria-label="Réinitialiser le chrono" onClick={() => { setRunning(false); setElapsed(0); }}>↺</button>
   </div>;
 }
@@ -47,8 +47,9 @@ function Hero({ onStart }: { onStart: () => void }) {
       <button className="primary-button hero-cta" onClick={onStart}>Entrer dans la boucle <span>↗</span></button>
     </div>
     <div className="hero-art" aria-hidden="true">
-      <div className="orbit orbit-a" /><div className="orbit orbit-b" /><div className="orbit orbit-c" />
-      <div className="planet"><div className="planet-grid" /><span>↻</span></div>
+      <div className="rail-signal">↻</div>
+      <div className="rail-vehicle"><div className="rail-vehicle-stripe" /><div className="rail-window" /><div className="rail-window" /><div className="rail-window" /><div className="rail-window" /><div className="rail-front"><span /></div></div>
+      <div className="rail-track"><i /><i /><i /></div>
       <div className="orbital-tag orbital-context"><span>01</span> contexte</div>
       <div className="orbital-tag orbital-model"><span>02</span> modèle</div>
       <div className="orbital-tag orbital-tool"><span>03</span> outil</div>
@@ -88,7 +89,7 @@ function Patterns() {
 }
 
 function CodeSlide() {
-  return <div className="code-slide"><div className="code-window"><div className="code-title"><span><i /><i /><i /></span><code>lib/loop.ts — extrait simplifié</code><span>AI SDK 7</span></div><pre><code>{code}</code></pre></div><div className="code-annotations"><article><span>01</span><h3>Le contrat</h3><p>Des descriptions, des schémas d’entrée et des fonctions d’exécution.</p></article><article><span>02</span><h3>La politique</h3><p>Les outils autorisés dépendent des observations. Les validations restent dans le code.</p></article><article><span>03</span><h3>Les limites</h3><p>Six appels maximum ; le dernier sans outil pour synthétiser. Timeout et annulation dans la route complète.</p></article><div className="callout">Le flux transporte le texte, les appels d’outils et les métriques jusqu’à React.</div></div></div>;
+  return <div className="code-slide"><div className="code-window"><div className="code-title"><span><i /><i /><i /></span><code>lib/loop.ts — extrait simplifié</code><span>AI SDK 7</span></div><pre><code>{code}</code></pre></div><div className="code-annotations"><article><span>01</span><h2>Le contrat</h2><p>Des descriptions, des schémas d’entrée et des fonctions d’exécution.</p></article><article><span>02</span><h2>La politique</h2><p>Les outils autorisés dépendent des observations. Les validations restent dans le code.</p></article><article><span>03</span><h2>Les limites</h2><p>Six appels maximum ; le dernier sans outil pour synthétiser. Timeout et annulation dans la route complète.</p></article><div className="callout">Le flux transporte le texte, les appels d’outils et les métriques jusqu’à React.</div></div></div>;
 }
 
 export function Presentation({ configured }: { configured: boolean }) {
@@ -145,7 +146,7 @@ export function Presentation({ configured }: { configured: boolean }) {
   return <div className={`presentation ${slide.id === "demo" ? "demo-mode" : ""}`}>
     <a className="skip-link" href="#main-content" onClick={(event) => { event.preventDefault(); document.getElementById("main-content")?.focus(); }}>Aller au contenu</a>
     <header className="site-header">
-      <button className="brand" onClick={() => goTo(0)} aria-label="Revenir à l’ouverture"><span className="brand-symbol">↻</span><span>dans la boucle<span className="brand-dot">.</span></span></button>
+      <button className="brand" onClick={() => goTo(0)} aria-label="dans la boucle. — Revenir à l’ouverture"><span className="brand-symbol" aria-hidden="true">↻</span><span>dans la boucle<span className="brand-dot">.</span></span></button>
       <div className="header-actions"><Timer /><button className="utility-button fullscreen-button" onClick={() => void fullscreen()} title="Plein écran (F)" aria-label="Basculer en plein écran">⛶</button><button className="utility-button" onClick={() => menu.current?.showModal()} title="Sommaire (M)" aria-label="Ouvrir le sommaire">☷</button></div>
     </header>
     <nav className="chapter-nav" aria-label="Chapitres du talk">

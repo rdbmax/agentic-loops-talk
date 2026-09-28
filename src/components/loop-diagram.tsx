@@ -34,7 +34,7 @@ export function LoopDiagram({ feature = "boucle" }: { feature?: string }) {
       <div className="panel-label"><span>LE MÊME MOTEUR</span><span className="tag">1 tour ≠ 1 appel</span></div>
       <div className="loop-canvas">
         <svg viewBox="0 0 600 330" preserveAspectRatio="none" aria-hidden="true">
-          <defs><marker id={`arrow-${feature}`} markerWidth="7" markerHeight="7" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6" fill="none" stroke="#7d927d" /></marker></defs>
+          <defs><marker id={`arrow-${feature}`} markerWidth="7" markerHeight="7" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6" fill="none" stroke="#8498bb" /></marker></defs>
           {["M 168 76 H 228", "M 366 76 H 431", "M 498 111 V 211", "M 431 251 H 370", "M 233 251 H 170", "M 102 212 V 115"].map((path) => <path key={path} d={path} className="loop-path" markerEnd={`url(#arrow-${feature})`} />)}
           <path d="M 300 111 V 149" className="loop-branch" markerEnd={`url(#arrow-${feature})`} />
         </svg>
